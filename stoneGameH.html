@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H-stoneGame</title>
+    <link rel='shortcut icon' href="./img/剪刀.jpg" >
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0px;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: lightsalmon;
+            font-family: monospace;
+        }
+        .all {
+            width: 100%;
+            height: 70vh;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .yours {
+            width: 250px;
+            height: 250px;
+            
+            border-radius: 50px;
+        }
+        .img1 {
+            background-image: url(./img/剪刀.jpg);
+            background-size: cover;
+        }
+        .img2{
+            background-image: url(./img/石頭.jpg);
+            background-size: cover;
+        }
+        .img3{
+            background-image: url(./img/布.jpg);
+            background-size: cover;
+        }
+        #result {
+            height: 30vh;
+            font-size: 25px;
+            font-weight: bolder;
+        }
+        .img1:hover,  .img2:hover, .img3:hover{ 
+            animation: shake 0.5s;
+            animation-iteration-count: infinite;
+        }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="all">
+        <div class="yours img1"></div>
+        <div class="yours img2"></div>
+        <div class="yours img3"></div>
+    </div>
+    <div id="result"></div>
+    <script>
+        var yoursAll = document.querySelectorAll('.yours');
+        var result = document.querySelector('#result');
+        yoursAll.forEach(function (yours, index) {
+            yours.addEventListener('click', function () {
+                console.log(yours, index);
+                var computer = Math.floor(Math.random() * 3 + 1);
+                console.log('電腦出' + computer);
+                let yours_i = index + 1;
+                let y = '';
+                let c = '';
+                if (yours_i == 1) {
+                    y = '剪刀';
+                } else if (yours_i == 2) {
+                    y = '石頭';
+                } else {
+                    y = '布';
+                }
+                if (computer == 1) {
+                    c = '剪刀';
+                } else if (computer == 2) {
+                    c = '石頭';
+                } else {
+                    c = '布';
+                }
+                let end = yours_i - computer;
+                let out = '';
+                if (end == -1 || end == 2) {
+                    out = '你輸了QQ!';
+                } else if (end == 1 || end == -2) {
+                    out = 'YA你贏了!';
+                } else if (end == 0) {
+                    out = '平手!!再來一次';
+                }
+                result.innerHTML = '玩家出:' + y + '\xa0' + '電腦出:' + c + '<br><br>' + out;
+
+            })
+        })
+
+    </script>
+</body>
+
+</html>

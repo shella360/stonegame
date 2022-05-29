@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stoneGame-Class</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0px;
+            width: 100%;
+            height: 100vh;
+        }
+        .all {
+            display: flex;
+            gap: 50px;
+        }
+        .yours {
+            width: 200px;
+            height: 300px;
+            background-color: lightsalmon;
+            text-align: center;
+            line-height: 300px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="all">
+        <div class="yours img1">剪刀</div>
+        <div class="yours img2">石頭</div>
+        <div class="yours img3">布</div>
+    </div>
+    <div id="result"></div>
+    <script>
+        //1.取得player的牌
+        //2.電腦出牌
+        //3.顯示player與電腦出的牌
+        //4.判斷輸贏
+        //5.顯示輸贏
+        //將3.5.做一起
+        let yoursAll = document.querySelectorAll('.yours');
+        let result = document.querySelector('#result');
+        //.forEach(個體,標註(索引)) PS.標註:由0開始
+        yoursAll.forEach(function (yours, index) {
+            yours.addEventListener('click', function () {
+                console.log(yours, index);
+                //清空結果
+                result.innerHTML = '';
+                //.電腦出牌
+                var computer = Math.floor(Math.random() * 3) + 1;
+                //random(亂數) 0-1的小數
+                //floor(地板數) EX:2.9 地板數=2
+                console.log('電腦出'+computer);
+                //3.顯示兩家的牌
+                //index = 0.1.2 index+1 =1.2.3
+                let yours_i = index + 1;
+                let y_r = '';
+                let c_r = '';
+                let out = '';
+
+                if (yours_i == 1) {
+                    y_r = '1.剪刀';
+                } else if (yours_i == 2) {
+                    y_r = '2.石頭';
+                } else {
+                    y_r = '3.布';
+                }
+
+                if (computer == 1) {
+                    c_r = '1.剪刀';
+                } else if (yours_i == 2) {
+                    c_r = '2.石頭';
+                } else {
+                    c_r = '3.布';
+                }
+
+                //result.innerHTML = '玩家出 :' + y_r + ',電腦出 :' + c_r ;
+
+                //4.判斷輸贏
+                let end = yours_i - computer;
+                
+                if((end == -1) || (end == 2)){
+                    out = '你輸了QQ';
+                } else if((end == 1) || (end == -2)){
+                    out = '你贏了YA';
+                }else if(end == 0){
+                    out = '平手~再來一次!';
+                }
+                result.innerHTML = '玩家出 :' + y_r + ',電腦出 :' + c_r + '<br>' + out ;
+                //html的標籤在script裡是字串
+            });
+        });
+
+    </script>
+</body>
+
+</html>
